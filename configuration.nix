@@ -21,7 +21,7 @@
  *    ██   ██ ██    ██ ██  ██  ██ ██          ██  ██  ██ ██   ██ ██  ██ ██ ██   ██ ██    ██ ██      ██   ██ 
  *    ██   ██  ██████  ██      ██ ███████     ██      ██ ██   ██ ██   ████ ██   ██  ██████  ███████ ██   ██  */
 
-  home-manager.users.ava = { pkgs, ... }: {
+  home-manager.users.ava = { pkgs, config, ... }: {
     programs.bash.enable = true;
     home.stateVersion = "23.05";
     home.packages = with pkgs; [ 
@@ -613,11 +613,22 @@
       indicator = true;
     };
 
+    /****************\
+    **  OBS Studio  **
+    \****************/
     programs.obs-studio = {
-        enable = true;
-        plugins = [ pkgs.obs-studio-plugins.wlrobs ];
+      enable = true;
+      plugins = [ pkgs.obs-studio-plugins.wlrobs ];
     };
-
+    home.file."${config.xdg.configHome}/obs-studio/basic" = {
+        source = (pkgs.fetchFromGitHub {
+          owner = "itzgoldenleonard";
+          repo = "nixos-dotfiles";
+          rev = "24f6698fba2e428bdddc1916d1cbfa4982abdcb4";
+          sha256 = "AubfDUGoObiXMFC/VFbMh/nEzfIK5NtRFf9A/rm1MYw=";
+        } + "/obs-studio");
+        recursive = true;
+    };
   };
 
 
