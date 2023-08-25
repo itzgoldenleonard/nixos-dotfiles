@@ -2,7 +2,7 @@
 
 This is where I keep all of my system and user configuration. As much as possible is crammed into the configuration.nix file. This is still a work in progress, so not everything is set up in configuration.nix yet, but the goal is to eventually be able to deploy a fully configured system with a single command.
 
-Some of the files like the obs-studio config files are stored in the git repo. On each rebuild they're fetched from github, not the local repo stored on the computer. This means that in order to update a configuration I have to actually commit the changes to the git repo, this setup prevents the actual configuration from drifting from what's intended in the repo.
+Some of the files like the obs-studio config files are stored in the git repo. On each rebuild they're fetched from github, not the local repo stored on the computer. This means that in order to update a configuration I have to actually commit the changes to the git repo, this setup prevents the actual configuration from drifting from what's intended in the repo. But the downside is that every time I change it I need to remember to also update the hashes in configuration.nix
 
 # Summary
 ## In configuration.nix
@@ -23,7 +23,7 @@ Some of the files like the obs-studio config files are stored in the git repo. O
 ## In git repo
 - OBS studio
 - DaVinci Resolve transitions
-- PrusaSlicer presets [NYI]
+- PrusaSlicer presets
 
 # Install
 
