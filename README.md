@@ -14,7 +14,7 @@ Some of the files like the obs-studio config files are stored in the git repo. O
         - Starship
     - Neovim
     - wiki-tui
-    - gitui [NYI]
+    - gitui
     - firefox [NYI]
 - System packages
 - Nvidia drivers
@@ -50,7 +50,10 @@ RUSTC_WRAPPER=sccache cargo install ytsub --features bundled_sqlite    # You mig
 
 # Todo
 
+- [ ] Setup rust dev environment
+- [ ] Install cargo packages
 - [ ] Install home manager without having to add the channel first (<https://nixos.wiki/wiki/Home_Manager>)
 - [ ] Automatically clone this git repo if it's not already
 - [ ] Sync a folder in ~/ to nfs server periodically
 - [ ] Download sync folder if it doesnt exist automatically
+- [ ] Setup sway and all of the required software for that
