@@ -622,25 +622,21 @@
       plugins = [ pkgs.obs-studio-plugins.wlrobs ];
     };
     home.file."${config.xdg.configHome}/obs-studio/basic" = {
-        /*
-        source = (pkgs.fetchFromGitHub {
-          owner = "itzgoldenleonard";
-          repo = "nixos-dotfiles";
-          rev = "24f6698fba2e428bdddc1916d1cbfa4982abdcb4";
-          sha256 = "AubfDUGoObiXMFC/VFbMh/nEzfIK5NtRFf9A/rm1MYw=";
-        } + "/obs-studio");
-        */
-        /*
-        source = (pkgs.fetchgit {
-          url = "https://github.com/itzgoldenleonard/nixos-dotfiles.git";
-          sparseCheckout = [ "obs-studio" ];
-          sha256 = "${nix-prefetch-url --unpack https://github.com/itzgoldenleonard/nixos-dotfiles/archive/refs/heads/master.tar.gz}";
-        } + "/obs-studio");
-        */
         source = (builtins.fetchGit {
             url = "https://github.com/itzgoldenleonard/nixos-dotfiles.git";
             ref = "master";
         } + "/obs-studio");
+        recursive = true;
+    };
+
+    /*********************\
+    **  DaVinci Resolve  **
+    \*********************/
+    hole.file."${config.home.homeDirectory}/.local/share/DaVinciResolve/Fusion/Templates/Edit/Transitions" = {
+        source = (builtins.fetchGit {
+            url = "https://github.com/itzgoldenleonard/nixos-dotfiles.git";
+            ref = "master";
+        } + "/davinci-resolve");
         recursive = true;
     };
   };

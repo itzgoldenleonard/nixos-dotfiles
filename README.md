@@ -22,7 +22,7 @@ Some of the files like the obs-studio config files are stored in the git repo. O
 
 ## In git repo
 - OBS studio
-- DaVinci Resolve transitions [NYI]
+- DaVinci Resolve transitions
 - PrusaSlicer presets [NYI]
 
 # Install
