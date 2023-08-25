@@ -632,7 +632,7 @@
     /*********************\
     **  DaVinci Resolve  **
     \*********************/
-    home.file."${config.home.homeDirectory}/.local/share/DaVinciResolve/Fusion/Templates/Edit/Transitions" = {
+    home.file."${config.home.homeDirectory}/.local/share/DaVinciResolve/Fusion/Templates/Edit" = {
         source = (builtins.fetchGit {
             url = "https://github.com/itzgoldenleonard/nixos-dotfiles.git";
             ref = "master";

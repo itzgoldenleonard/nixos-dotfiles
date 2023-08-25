@@ -49,6 +49,7 @@ RUSTC_WRAPPER=sccache cargo install ytsub --features bundled_sqlite    # You mig
 
 # Todo
 
+- [ ] Install home manager without having to add the channel first (<https://nixos.wiki/wiki/Home_Manager>)
 - [ ] Automatically clone this git repo if it's not already
 - [ ] Sync a folder in ~/ to nfs server periodically
 - [ ] Download sync folder if it doesnt exist automatically
