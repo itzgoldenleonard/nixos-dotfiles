@@ -1,0 +1,146 @@
+{
+	Tools = ordered() {
+		NiceSlide = GroupOperator {
+			CtrlWZoom = false,
+			NameSet = true,
+			CustomData = {
+				Path = {
+					Map = {
+						["Setting:"] = "Templates:/Templates.drfx/Edit/Transitions/"
+					}
+				},
+			},
+			Inputs = ordered() {
+				MainInput1 = InstanceInput {
+					SourceOp = "Dissolve1",
+					Source = "Background",
+				},
+				MainInput2 = InstanceInput {
+					SourceOp = "Dissolve1",
+					Source = "Foreground",
+				},
+				Input1 = InstanceInput {
+					SourceOp = "AnimCurves2",
+					Source = "Scale",
+					Default = 0.05,
+					Name = "Slide length",
+				},
+				Input2 = InstanceInput {
+					SourceOp = "AnimCurves2",
+					Source = "Invert",
+					Width = 0.5,
+					Default = 0,
+				}
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "Transform1",
+					Source = "Output",
+				}
+			},
+			ViewInfo = GroupInfo {
+				Pos = { 300, 96.3788 },
+				Flags = {
+					Expanded = true,
+					AllowPan = false,
+					AutoSnap = true,
+					RemoveRouters = true
+				},
+				Size = { 286.667, 79.697, 63, 24.2424 },
+				Direction = "Horizontal",
+				PipeStyle = "Direct",
+				Scale = 1,
+				Offset = { 0, 0 }
+			},
+			Tools = ordered() {
+				Dissolve1 = Dissolve {
+					Transitions = {
+						[0] = "DFTDissolve"
+					},
+					Inputs = {
+						Mix = Input {
+							SourceOp = "AnimCurves1",
+							Source = "Value",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 12, 16.0303 } },
+				},
+				AnimCurves1 = LUTLookup {
+					CtrlWZoom = false,
+					Inputs = {
+						Curve = Input { Value = FuID { "Custom" }, },
+						EaseIn = Input { Value = FuID { "Quart" }, },
+						EaseOut = Input { Value = FuID { "Quad" }, },
+						Lookup = Input {
+							SourceOp = "AnimCurves1Lookup",
+							Source = "Value",
+						},
+					},
+				},
+				Transform1 = Transform {
+					Inputs = {
+						MotionBlur = Input { Value = 1, },
+						Quality = Input { Value = 10, },
+						Center = Input {
+							SourceOp = "XYPath1",
+							Source = "Value",
+						},
+						Input = Input {
+							SourceOp = "Dissolve1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 118, 17.2424 } },
+				}
+			},
+		},
+		AnimCurves1Lookup = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0, RH = { 0.79953534018306, -0.00665834373699536 }, Flags = { Linear = true } },
+					[1] = { 1, LH = { 0.601016422042705, 1 } }
+				}
+			},
+			SplineColor = { Red = 255, Green = 255, Blue = 255 },
+			NameSet = true,
+		},
+		XYPath1 = XYPath {
+			ShowKeyPoints = false,
+			DrawMode = "ModifyOnly",
+			Inputs = {
+				X = Input { Value = 0.5, },
+				Y = Input {
+					SourceOp = "AnimCurves2",
+					Source = "Value",
+				},
+			},
+		},
+		AnimCurves2 = LUTLookup {
+			CtrlWZoom = false,
+			Inputs = {
+				Curve = Input { Value = FuID { "Custom" }, },
+				EaseIn = Input { Value = FuID { "Quart" }, },
+				Lookup = Input {
+					SourceOp = "AnimCurves2Lookup",
+					Source = "Value",
+				},
+				Scale = Input { Value = 0.1, },
+				Offset = Input {
+					Value = 0.4,
+					Expression = "0.5-Scale",
+				},
+			},
+		},
+		AnimCurves2Lookup = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0, RH = { 0.796713942493994, -1.0559186375511e-17 }, Flags = { Linear = true } },
+					[1] = { 1, LH = { 0.599026316293868, 0.996814018319395 } }
+				}
+			},
+			SplineColor = { Red = 255, Green = 255, Blue = 255 },
+			NameSet = true,
+		}
+	},
+	ActiveTool = "NiceSlide"
+}

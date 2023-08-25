@@ -21,7 +21,7 @@ Some of the files like the obs-studio config files are stored in the git repo. O
 - Localization
 
 ## In git repo
-- OBS studio [NYI]
+- OBS studio
 - DaVinci Resolve transitions [NYI]
 - PrusaSlicer presets [NYI]
 
@@ -47,3 +47,8 @@ RUSTC_WRAPPER=sccache cargo install ytsub --features bundled_sqlite    # You mig
 ## Add network places and calendars
 
 
+# Todo
+
+- [ ] Automatically clone this git repo if it's not already
+- [ ] Sync a folder in ~/ to nfs server periodically
+- [ ] Download sync folder if it doesnt exist automatically

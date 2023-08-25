@@ -1,0 +1,185 @@
+{
+	Tools = ordered() {
+		Compare = GroupOperator {
+			CtrlWZoom = false,
+			Inputs = ordered() {
+				MainInput1 = InstanceInput {
+					SourceOp = "MediaMerge",
+					Source = "Background",
+				},
+				MainInput2 = InstanceInput {
+					SourceOp = "MediaMerge",
+					Source = "Foreground",
+				},
+                Input1 = InstanceInput {
+                    SourceOp = "LineMask",
+                    Source = "Width",
+                    Name = "Line Width",
+                    Default = 0.015,
+                },
+                Input2 = InstanceInput {
+                    SourceOp = "LineColor",
+                    Source = "TopLeftRed",
+                    Name = "Line Color",
+                    ControlGroup = 1,
+                    Default = 1,
+                },
+                Input3 = InstanceInput {
+                    SourceOp = "LineColor",
+                    Source = "TopLeftGreen",
+                    Name = "Line Color",
+                    ControlGroup = 1,
+                    Default = 1,
+                },
+                Input4 = InstanceInput {
+                    SourceOp = "LineColor",
+                    Source = "TopLeftBlue",
+                    Name = "Line Color",
+                    ControlGroup = 1,
+                    Default = 1,
+                },
+                Input5 = InstanceInput {
+                    SourceOp = "LineColor",
+                    Source = "TopLeftAlpha",
+                    Name = "Line Color",
+                    ControlGroup = 1,
+                    Default = 1,
+                },
+			},
+			Outputs = {
+				Output1 = InstanceOutput {
+					SourceOp = "LineMerge",
+					Source = "Output",
+				}
+			},
+			ViewInfo = GroupInfo {
+				Pos = { 392.063, 116.292 },
+				Flags = {
+					AllowPan = false,
+					AutoSnap = true,
+					RemoveRouters = true
+				},
+				Size = { 258.936, 186.054, 129.468, 24.2424 },
+				Direction = "Horizontal",
+				PipeStyle = "Direct",
+				Scale = 1,
+				Offset = { -406.205, -58.8661 }
+			},
+			Tools = ordered() {
+				LineMerge = Merge {
+					NameSet = true,
+					Inputs = {
+						Background = Input {
+							SourceOp = "MediaMerge",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "LineColor",
+							Source = "Output",
+						},
+						PerformDepthMerge = Input { Value = 0, },
+					},
+					ViewInfo = OperatorInfo { Pos = { 472.673, 67.5025 } },
+				},
+				MediaMerge = Merge {
+					NameSet = true,
+					Inputs = {
+						PerformDepthMerge = Input { Value = 0, },
+						EffectMask = Input {
+							SourceOp = "MediaMask",
+							Source = "Mask",
+						}
+					},
+					ViewInfo = OperatorInfo { Pos = { 339.737, 93.6457 } },
+				},
+				LineColor = Background {
+					NameSet = true,
+					Inputs = {
+						GlobalOut = Input { Value = 179, },
+						Width = Input { Value = 1920, },
+						Height = Input { Value = 1080, },
+						UseFrameFormatSettings = Input { Value = 1, },
+						["Gamut.SLogVersion"] = Input { Value = FuID { "SLog2" }, },
+						TopLeftRed = Input { Value = 1, },
+						TopLeftGreen = Input { Value = 1, },
+						TopLeftBlue = Input { Value = 1, },
+						EffectMask = Input {
+							SourceOp = "LineMask",
+							Source = "Mask",
+						}
+					},
+					ViewInfo = OperatorInfo { Pos = { 472.039, 133.502 } },
+				},
+				MediaMask = RectangleMask {
+					NameSet = true,
+					Inputs = {
+						Filter = Input { Value = FuID { "Fast Gaussian" }, },
+						MaskWidth = Input { Value = 1920, },
+						MaskHeight = Input { Value = 1080, },
+						PixelAspect = Input { Value = { 1, 1 }, },
+						UseFrameFormatSettings = Input { Value = 1, },
+						ClippingMode = Input { Value = FuID { "None" }, },
+						Center = Input { Value = { 0, 0.5 }, },
+						Width = Input {
+							SourceOp = "AnimCurves1",
+							Source = "Value",
+						},
+						Height = Input { Value = 1, },
+					},
+					ViewInfo = OperatorInfo { Pos = { 334.08, 159.646 } },
+				},
+				LineMask = RectangleMask {
+					NameSet = true,
+					Inputs = {
+						Filter = Input { Value = FuID { "Fast Gaussian" }, },
+						MaskWidth = Input { Value = 1920, },
+						MaskHeight = Input { Value = 1080, },
+						PixelAspect = Input { Value = { 1, 1 }, },
+						UseFrameFormatSettings = Input { Value = 1, },
+						ClippingMode = Input { Value = FuID { "None" }, },
+						Center = Input {
+							Value = { 0.561530725099391, 0.5 },
+							Expression = "Point(MediaMask.Width/2, 0.5)",
+						},
+						Width = Input { Value = 0.015, },
+						Height = Input { Value = 1, },
+					},
+					ViewInfo = OperatorInfo { Pos = { 472.039, 188.784 } },
+				}
+			},
+		},
+		AnimCurves1 = LUTLookup {
+			CtrlWZoom = false,
+			Inputs = {
+				Curve = Input { Value = FuID { "Custom" }, },
+				Lookup = Input {
+					SourceOp = "AnimCurves1Lookup",
+					Source = "Value",
+				},
+				Scale = Input {
+					Value = 2.03,
+					Expression = "2.0+LineMask.Width*2",
+				},
+				Offset = Input {
+					Value = -0.015,
+					Expression = "-LineMask.Width",
+				},
+			},
+		},
+		AnimCurves1Lookup = LUTBezier {
+			KeyColorSplines = {
+				[0] = {
+					[0] = { 0, RH = { 0.123372165894423, 0.00233036313356132 }, Flags = { Linear = true } },
+					[0.334921909806097] = { 0.305450130944194, LH = { 0.202480463777851, 0.293053790613437 }, RH = { 0.423601829360556, 0.313750451548266 } },
+					[0.605418212372666] = { 0.156500427919109, LH = { 0.513809725929604, 0.0645345248583872 }, RH = { 0.647234650229406, 0.198480015396168 } },
+					[0.733014191968052] = { 0.560839249189584, LH = { 0.638941000235838, 0.54478411365514 }, RH = { 0.783106133152399, 0.569388261826316 } },
+					[0.884149317151841] = { 0.578959098119991, LH = { 0.806750863548214, 0.543984292523068 }, RH = { 0.948228905385293, 0.607915376144268 } },
+					[1] = { 1, LH = { 0.961069563223153, 0.961069563223153 } }
+				}
+			},
+			SplineColor = { Red = 255, Green = 255, Blue = 255 },
+			NameSet = true,
+		}
+	},
+	ActiveTool = "Compare"
+}
