@@ -36,6 +36,7 @@ in
     home.packages = with pkgs; [ 
       firefox
       prusa-slicer
+      wiki-tui
     ];
 
 
@@ -631,24 +632,70 @@ in
       plugins = [ pkgs.obs-studio-plugins.wlrobs ];
     };
     home.file."${config.xdg.configHome}/obs-studio/basic" = {
-        source = (dotfiles-repo + "/obs-studio");
-        recursive = true;
+      source = (dotfiles-repo + "/obs-studio");
+      recursive = true;
     };
 
     /*********************\
     **  DaVinci Resolve  **
     \*********************/
     home.file."${config.home.homeDirectory}/.local/share/DaVinciResolve/Fusion/Templates/Edit/Transitions" = {
-        source = (dotfiles-repo +  "/davinci-resolve");
-        recursive = true;
+      source = (dotfiles-repo +  "/davinci-resolve");
+      recursive = true;
     };
 
     /*****************\
     **  PrusaSlicer  **
     \*****************/
     home.file."${config.xdg.configHome}/PrusaSlicer" = {
-        source = (dotfiles-repo + "/prusa-slicer");
-        recursive = true;
+      source = (dotfiles-repo + "/prusa-slicer");
+      recursive = true;
+    };
+
+    /************\
+    ** wiki-tui **
+    \************/
+    home.file."${config.xdg.configHome}/wiki-tui/config.toml" = {
+      text = ''
+        [api]
+        base_url = 'https://en.wikipedia.org/'
+
+        [theme]
+        text = 'white'
+        title = 'light magenta'
+        highlight = '#1b668f'
+        background = 'black'
+        search_match = 'light cyan'
+        highlight_text = 'white'
+        highlight_inactive = 'black'
+
+        [logging]
+        enabled = false
+
+        [features]
+        links = true
+        toc = true
+
+        # Vim keybinds
+        [keybindings]
+        down.key = 'j'
+        up.key = 'k'
+        left.key = 'h'
+        right.key = 'l'
+        focus_next.key = 'tab'
+        focus_next.mode = 'normal'
+        focus_prev.key = 'tab'
+        focus_prev.mode = 'shift'
+
+        [settings.toc]
+        position = 'left'
+        title = 'article'
+        min_width = 20
+        max_width = 40
+        scroll_x = true
+        scroll_y = true
+        item_format = '{NUMBER} {TEXT}'
+      '';
     };
   };
 

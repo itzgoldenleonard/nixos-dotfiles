@@ -13,8 +13,9 @@ Some of the files like the obs-studio config files are stored in the git repo. O
     - Nushell
         - Starship
     - Neovim
-    - wiki-tui [NYI]
+    - wiki-tui
     - gitui [NYI]
+    - firefox [NYI]
 - System packages
 - Nvidia drivers
 - Fonts
