@@ -26,7 +26,7 @@
     home.stateVersion = "23.05";
     home.packages = with pkgs; [ 
       firefox
-      kate
+      prusa-slicer
     ];
 
 
@@ -637,6 +637,17 @@
             url = "https://github.com/itzgoldenleonard/nixos-dotfiles.git";
             ref = "master";
         } + "/davinci-resolve");
+        recursive = true;
+    };
+
+    /*****************\
+    **  PrusaSlicer  **
+    \*****************/
+    home.file."${config.xdg.configHome}/PrusaSlicer" = {
+        source = (builtins.fetchGit {
+            url = "https://github.com/itzgoldenleonard/nixos-dotfiles.git";
+            ref = "master";
+        } + "/prusa-slicer");
         recursive = true;
     };
   };
