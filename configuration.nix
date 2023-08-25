@@ -1,5 +1,14 @@
 { config, lib, pkgs, ... }:
 
+let 
+  dotfiles-repo = pkgs.fetchFromGitHub {
+    owner = "itzgoldenleonard";
+    repo = "nixos-dotfiles";
+    rev = "c5429052d22ba91706cc0864cb21442584c26be4";
+    sha256 = "ok6id1cTy6zIl7tfi5sCxvXMioB+vbIuGZiMP59NOiw=";
+  };
+
+in
 {
   imports =
     [
@@ -622,10 +631,7 @@
       plugins = [ pkgs.obs-studio-plugins.wlrobs ];
     };
     home.file."${config.xdg.configHome}/obs-studio/basic" = {
-        source = (builtins.fetchGit {
-            url = "https://github.com/itzgoldenleonard/nixos-dotfiles.git";
-            ref = "master";
-        } + "/obs-studio");
+        source = (dotfiles-repo + "/obs-studio");
         recursive = true;
     };
 
@@ -633,10 +639,7 @@
     **  DaVinci Resolve  **
     \*********************/
     home.file."${config.home.homeDirectory}/.local/share/DaVinciResolve/Fusion/Templates/Edit/Transitions" = {
-        source = (builtins.fetchGit {
-            url = "https://github.com/itzgoldenleonard/nixos-dotfiles.git";
-            ref = "master";
-        } + "/davinci-resolve");
+        source = (dotfiles-repo +  "/davinci-resolve");
         recursive = true;
     };
 
@@ -644,10 +647,7 @@
     **  PrusaSlicer  **
     \*****************/
     home.file."${config.xdg.configHome}/PrusaSlicer" = {
-        source = (builtins.fetchGit {
-            url = "https://github.com/itzgoldenleonard/nixos-dotfiles.git";
-            ref = "master";
-        } + "/prusa-slicer");
+        source = (dotfiles-repo + "/prusa-slicer");
         recursive = true;
     };
   };
