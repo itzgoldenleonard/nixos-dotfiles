@@ -40,7 +40,7 @@ sudo curl https://raw.githubusercontent.com/itzgoldenleonard/nixos-dotfiles/mast
 ```sh
 rustup install default
 cargo install sccache
-RUSTC_WRAPPER=sccache cargo install nu starship wiki-tui speedtest-rs
+RUSTC_WRAPPER=sccache cargo install speedtest-rs
 RUSTC_WRAPPER=sccache cargo install youtube-tui --no-default-features
 RUSTC_WRAPPER=sccache cargo install ytsub --features bundled_sqlite    # You might be able to install everything in one line (that's a challenge)
 ```

@@ -509,7 +509,7 @@ in
     # General user shell config (to be used outside of nushell too)
     # =============================================================
     home.sessionVariables = {
-      RUSTC_WRAPPER="/usr/bin/env sccache";
+      RUSTC_WRAPPER="sccache";
       DOTFILES_DIR="${config.xdg.configHome}/dotfiles";
     };
 
