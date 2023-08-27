@@ -38,7 +38,7 @@ sudo curl https://raw.githubusercontent.com/itzgoldenleonard/nixos-dotfiles/mast
 ## Install rust packages
 
 ```sh
-rustup default
+rustup install default
 cargo install sccache
 RUSTC_WRAPPER=sccache cargo install nu starship wiki-tui speedtest-rs
 RUSTC_WRAPPER=sccache cargo install youtube-tui --no-default-features

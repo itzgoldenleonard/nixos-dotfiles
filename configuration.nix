@@ -37,6 +37,7 @@ in
       firefox
       prusa-slicer
       wiki-tui
+      sccache
     ];
 
 
@@ -48,9 +49,11 @@ in
       config = { ytdl-format = "bestvideo[height<=?1080]+bestaudio/best"; }; # Limit youtube to 1080p to load faster
     };
 
-    /*************\
-    **  Nushell  **
-    \*************/
+    /***********\
+    **  Shell  **
+    \***********/
+    # Nu
+    # ==
     programs.nushell = {
       enable = true;
       envFile.text = ''
@@ -501,6 +504,13 @@ in
           display.threshold = 100;
         };
       };
+    };
+
+    # General user shell config (to be used outside of nushell too)
+    # =============================================================
+    home.sessionVariables = {
+      RUSTC_WRAPPER="/usr/bin/env sccache";
+      DOTFILES_DIR="${config.xdg.configHome}/dotfiles";
     };
 
     /**********\
