@@ -8,6 +8,7 @@ let
     sha256 = "ok6id1cTy6zIl7tfi5sCxvXMioB+vbIuGZiMP59NOiw=";
   };
 
+  unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
 in
 {
   imports =
@@ -35,9 +36,13 @@ in
     home.stateVersion = "23.05";
     home.packages = with pkgs; [ 
       firefox
+      libsForQt5.kate
       prusa-slicer
       wiki-tui
       sccache
+      inkscape
+      openscad
+      gnome-solanum
     ];
 
 
@@ -790,6 +795,9 @@ in
      xclip
      git
      rustup
+     appimage-run
+     unstable.davinci-resolve
+     gnupg
   ];
 
   # Neovim
@@ -842,7 +850,15 @@ in
   networking.networkmanager.enable = true; # Enable networking
   networking.hostName = "ava-desktop-nix";
   # networking.wireless.enable = true;
+
+  /**************\
+  **  Printing  ** TODO
+  \**************/
   services.printing.enable = true;
+  services.avahi.enable = true;
+  services.avahi.nssmdns = true;
+  services.avahi.openFirewall = true;
+  services.printing.drivers = with pkgs; [ gutenprint samsung-unified-linux-driver ];
 
 
   /******************\
