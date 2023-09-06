@@ -8,13 +8,17 @@ let
     sha256 = "ok6id1cTy6zIl7tfi5sCxvXMioB+vbIuGZiMP59NOiw=";
   };
 
-  unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
+  unstable = import (builtins.fetchTarball {
+      url = "https://github.com/nixos/nixpkgs/tarball/nixpkgs-unstable";
+      }) { config = config.nixpkgs.config; };
+  
+  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-23.05.tar.gz";
 in
 {
   imports =
     [
       ./hardware-configuration.nix  # Hardware scan
-      <home-manager/nixos>
+      (import "${home-manager}/nixos")
     ];
 
   /********************\
@@ -906,9 +910,6 @@ in
     description = "Ava Drumm";
     extraGroups = [ "networkmanager" "wheel" ];
   };
-  #security.sudo.enable = false;
-  security.doas.enable = true;
-  security.doas.extraRules = [ { users = [ "ava" ]; persist = true; keepEnv = true; } ];
 }
 
 /* Configuration with sway
