@@ -15,6 +15,7 @@ Some of the files like the obs-studio config files are stored in the git repo. O
     - Neovim
     - wiki-tui
     - gitui
+    - gpg
     - firefox [NYI]
 - System packages
 - Nvidia drivers
@@ -50,8 +51,6 @@ RUSTC_WRAPPER=sccache cargo install ytsub --features bundled_sqlite    # You mig
 
 # Todo
 
-- [ ] Printing
-- [ ] GPG
 - [ ] Setup firefox/browser
 - [ ] Setup rust dev environment
 - [ ] Install cargo packages

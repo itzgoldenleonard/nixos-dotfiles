@@ -635,14 +635,6 @@ in
       '';
     };
 
-    /***************\
-    ** KDE Connect **
-    \***************/
-    services.kdeconnect = {
-      enable = true;
-      indicator = true;
-    };
-
     /****************\
     **  OBS Studio  **
     \****************/
@@ -781,6 +773,18 @@ in
         )
       '';
     };
+
+    /*******\
+    ** GPG **
+    \*******/
+    programs.gpg = {
+        enable = true;
+        homedir = "${config.xdg.dataHome}/gnupg";
+    };
+    services.gpg-agent = {
+        enable = true;
+        pinentryFlavor = "qt";
+    };
   };
 
 
@@ -799,10 +803,10 @@ in
      xclip
      git
      rustup
-     appimage-run
-     unstable.davinci-resolve
-     gnupg
+     appimage-run             # TODO: could this be a user package
+     unstable.davinci-resolve # This too
   ];
+  programs.kdeconnect.enable = true;
 
   # Neovim
   # ======
@@ -855,14 +859,15 @@ in
   networking.hostName = "ava-desktop-nix";
   # networking.wireless.enable = true;
 
+
   /**************\
-  **  Printing  ** TODO
+  **  Printing  **
   \**************/
   services.printing.enable = true;
   services.avahi.enable = true;
   services.avahi.nssmdns = true;
   services.avahi.openFirewall = true;
-  services.printing.drivers = with pkgs; [ gutenprint samsung-unified-linux-driver ];
+  services.printing.drivers = with pkgs; [ gutenprint samsung-unified-linux-driver ]; # TODO: If ipp everywhere works then I wont need these drivers
 
 
   /******************\
