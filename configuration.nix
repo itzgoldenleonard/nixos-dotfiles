@@ -35,7 +35,9 @@ in
  *    ██   ██ ██    ██ ██  ██  ██ ██          ██  ██  ██ ██   ██ ██  ██ ██ ██   ██ ██    ██ ██      ██   ██ 
  *    ██   ██  ██████  ██      ██ ███████     ██      ██ ██   ██ ██   ████ ██   ██  ██████  ███████ ██   ██  */
 
-  home-manager.users.ava = { pkgs, config, ... }: {
+  home-manager.useGlobalPkgs = true;
+  home-manager.useUserPackages = true;
+  home-manager.users.ava = { pkgs, config, osConfig, ... }: {
     programs.bash.enable = true;
     home.stateVersion = "23.05";
     home.packages = with pkgs; [ 
@@ -56,6 +58,7 @@ in
     programs.mpv = {
       enable = true;
       config = { ytdl-format = "bestvideo[height<=?1080]+bestaudio/best"; }; # Limit youtube to 1080p to load faster
+      scripts = with pkgs.mpvScripts; [ mpris youtube-quality sponsorblock webtorrent-mpv-hook ];
     };
 
     /***********\
