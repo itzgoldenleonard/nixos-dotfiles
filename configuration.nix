@@ -49,6 +49,8 @@ in
       inkscape
       openscad
       gnome-solanum
+      unstable.nyxt
+      tokei
     ];
 
 
@@ -853,12 +855,14 @@ in
   \****************/
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.timeout = 0;
 
 
   /****************\
   **  Networking  **
   \****************/
   networking.networkmanager.enable = true; # Enable networking
+  networking.networkmanager.wifi.scanRandMacAddress = false;
   networking.hostName = "ava-desktop-nix";
   # networking.wireless.enable = true;
 

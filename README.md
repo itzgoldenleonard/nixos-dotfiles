@@ -53,10 +53,10 @@ RUSTC_WRAPPER=sccache cargo install ytsub --features bundled_sqlite    # You mig
 
 - [ ] Setup firefox/browser
 - [ ] Setup rust dev environment
-- [ ] Install cargo packages
 - [ ] Automatically clone this git repo if it's not already
 - [ ] Sync a folder in ~/ to nfs server periodically
 - [ ] Download sync folder if it doesnt exist automatically
+- [ ] Install cargo packages
 - [ ] Setup sway and all of the required software for that
     - [ ] pass
     - [ ] dmenu or similar
