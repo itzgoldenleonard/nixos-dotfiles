@@ -41,7 +41,6 @@ in
     programs.bash.enable = true;
     home.stateVersion = "23.05";
     home.packages = with pkgs; [ 
-      firefox
       libsForQt5.kate
       prusa-slicer
       wiki-tui
@@ -49,7 +48,7 @@ in
       inkscape
       openscad
       gnome-solanum
-      unstable.nyxt
+      tor-browser-bundle-bin
       tokei
     ];
 
@@ -668,9 +667,9 @@ in
       recursive = true;
     };
 
-    /************\
-    ** wiki-tui **
-    \************/
+    /**************\
+    **  wiki-tui  **
+    \**************/
     home.file."${config.xdg.configHome}/wiki-tui/config.toml" = {
       text = ''
         [api]
@@ -714,9 +713,9 @@ in
       '';
     };
 
-    /*********\
-    ** gitui **
-    \*********/
+    /***********\
+    **  gitui  **
+    \***********/
     programs.gitui = {
       enable = true;
       keyConfig = ''
@@ -779,16 +778,77 @@ in
       '';
     };
 
-    /*******\
-    ** GPG **
-    \*******/
+    /*********\
+    **  GPG  **
+    \*********/
     programs.gpg = {
-        enable = true;
-        homedir = "${config.xdg.dataHome}/gnupg";
+      enable = true;
+      homedir = "${config.xdg.dataHome}/gnupg";
     };
     services.gpg-agent = {
-        enable = true;
-        pinentryFlavor = "qt";
+      enable = true;
+      pinentryFlavor = "qt";
+    };
+
+    /*************\
+    **  Firefox  **
+    \*************/
+    programs.firefox = {
+      enable = true;
+      profiles.ava = {
+        search = {
+          default = "Brave";
+          force = true;
+          engines = {
+            "Brave" = {
+              urls=[{
+                template = "https://search.brave.com/search";
+                params = [ { name = "q"; value = "{searchTerms}"; } ];
+              }];
+              icon = "https://cdn.search.brave.com/serp/v1/static/brand/eebf5f2ce06b0b0ee6bbd72d7e18621d4618b9663471d42463c692d019068072-brave-lion-favicon.png";
+            };
+            "Nix Packages" = {
+              urls = [{
+                template = "https://search.nixos.org/packages";
+                params = [
+                  { name = "type"; value = "packages"; }
+                  { name = "query"; value = "{searchTerms}"; }
+                ];
+              }];
+              icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+              definedAliases = [ "@np" ];
+            };
+            "Wiby" = {
+              urls = [{
+                template = "https://wiby.me";
+                params = [ { name = "q"; value = "{searchTerms}"; } ];
+              }];
+              icon = "https://wiby.me/favicon.ico";
+              definedAliases = [ "@m" "@w" ];
+            };
+            "Bing".metaData.hidden = true;
+            "Google".metaData.hidden = true;
+            "Amazon.com".metaData.hidden = true;
+            "DuckDuckGo".metaData.hidden = true;
+          };
+        };
+        settings = {
+          # Misc
+          "browser.search.region" = "World";
+          "intl.regional_prefs.use_os_locales" = true;
+          # Security / anti-tracking
+          "dom.security.https_only_mode" = true;
+          "browser.contentblocking.category" = "strict";
+          "privacy.donottrackheader.enabled" = true;
+          "signon.rememberSignons" = false;
+          # New tab page
+          "browser.newtabpage.pinned" = null;
+          "browser.newtabpage.activity-stream.improvesearch.topSiteSearchShortcuts.havePinned" = null;
+          "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
+          "browser.newtabpage.activity-stream.topSitesRows" = 2;
+          # https://github.com/arkenfox/user.js/blob/master/user.js
+        };
+      };
     };
   };
 
@@ -812,6 +872,7 @@ in
      unstable.davinci-resolve # This too
   ];
   programs.kdeconnect.enable = true;
+  programs.dconf.enable = true; # This is neccessary for glib apps to change settings
 
   # Neovim
   # ======
