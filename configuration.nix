@@ -962,10 +962,7 @@ in
     LC_TELEPHONE = "en_DK.UTF-8";
     LC_TIME = "en_DK.UTF-8";
   };
-  services.xserver = { # Keyboard layout
-    layout = "us";
-    xkbVariant = "";
-  };
+  console.keyMap = "dvorak";
 
 
   /***********\
