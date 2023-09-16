@@ -25,7 +25,7 @@ in
   **  Window manager  **
   \********************/
   services.xserver.enable = true;
-  services.xserver.displayManager.sddm.enable = true;
+  services.xserver.displayManager.startx.enable = true; # Disables the display manager
   services.xserver.desktopManager.plasma5.enable = true;
   # services.xserver.libinput.enable = true; # touchpad support
 
@@ -895,6 +895,14 @@ in
     modesetting.enable = true;
     open = false; # Use the open source version of the kernel module Only available on driver 515.43.04+
     nvidiaSettings = true;
+    prime = {
+      nvidiaBusId = "PCI:1:0:0";
+      amdgpuBusId = "PCI:34:0:0";
+      offload = {
+        enable = true;
+        enableOffloadCmd = true;
+      };
+    };
   };
 
   # Fonts
@@ -924,7 +932,7 @@ in
   \****************/
   networking.networkmanager.enable = true; # Enable networking
   networking.networkmanager.wifi.scanRandMacAddress = false;
-  networking.hostName = "ava-desktop-nix";
+  networking.hostName = "ava-laptop-nix";
   # networking.wireless.enable = true;
 
 
