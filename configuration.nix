@@ -50,6 +50,11 @@ in
       gnome-solanum
       tor-browser-bundle-bin
       tokei
+      blender
+      libreoffice-qt
+      rawtherapee
+      docker-compose
+      kalendar
     ];
 
 
@@ -844,9 +849,123 @@ in
           # New tab page
           "browser.newtabpage.pinned" = null;
           "browser.newtabpage.activity-stream.improvesearch.topSiteSearchShortcuts.havePinned" = null;
-          "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
           "browser.newtabpage.activity-stream.topSitesRows" = 2;
           # https://github.com/arkenfox/user.js/blob/master/user.js
+          # Arkenfox [0100]
+          "browser.startup.page" = 3; #102
+          "browser.startup.homepage" = "about:home"; #103
+          "browser.newtabpage.activity-stream.showSponsored" = false; #105
+          "browser.newtabpage.activity-stream.showSponsoredTopSites" = false; #105
+          "browser.newtabpage.activity-stream.default.sites" = ""; #106
+          # Arkenfox [0200]
+          "geo.provider.network.url" = "https://location.services.mozilla.com/v1/geolocate?key=%MOZILLA_API_KEY%"; #201
+          "geo.provider.use_gpsd" = false; #202
+          "geo.provider.use_geoclue" = false; #202
+          "intl.accept_languages" = "en-US, en"; #210
+          "javascript.use_us_english_locale" = true; #211
+          # Arkenfox [0300]
+          "extensions.getAddons.showPane" = false; #320
+          "extensions.htmlaboutaddons.recommendations.enabled" = false; #321
+          "browser.discovery.enabled" = false; #322
+          "datareporting.policy.dataSubmissionEnabled" = false; #330
+          "datareporting.healthreport.uploadEnabled" = false; #331
+          "toolkit.telemetry.unified" = false; #332
+          "toolkit.telemetry.enabled" = false; #332
+          "toolkit.telemetry.server" = "data:,"; #332
+          "toolkit.telemetry.archive.enabled" = false; #332
+          "toolkit.telemetry.newProfilePing.enabled" = false; #332
+          "toolkit.telemetry.shutdownPingSender.enabled" = false; #332
+          "toolkit.telemetry.updatePing.enabled" = false; #332
+          "toolkit.telemetry.bhrPing.enabled" = false; #332
+          "toolkit.telemetry.firstShutdownPing.enabled" = false; #332
+          "toolkit.telemetry.coverage.opt-out" = true; #333
+          "toolkit.coverage.opt-out" = true; #333
+          "toolkit.coverage.endpoint.base" = ""; #333
+          "browser.ping-centre.telemetry" = false; #334
+          "browser.newtabpage.activity-stream.feeds.telemetry" = false; #335
+          "browser.newtabpage.activity-stream.telemetry" = false; #336
+          "app.shield.optoutstudies.enabled" = false; #340
+          "app.normandy.enabled" = false; #341
+          "app.normandy.api_url" = ""; #341
+          "breakpad.reportURL" = ""; #350
+          "browser.tabs.crashReporting.sendReport" = false; #350
+          "browser.crashReports.unsubmittedCheck.autoSubmit2" = false; #351
+          "captivedetect.canonicalURL" = ""; #360
+          "network.captive-portal-service.enabled" = false; #360
+          "network.connectivity-service.enabled" = false; #361
+          # Arkenfox [0400]
+          "browser.safebrowsing.downloads.remote.enabled" = false;
+          # Arkenfox [0600]
+          "network.http.speculative-parallel-limit" = 0; #604
+          "browser.places.speculativeConnect.enabled" = false; #605
+          "browser.send_pings" = false; #610
+          # Arkenfox [0700]
+          "network.file.disable_unc_paths" = true; #703
+          "network.gio.supported-protocols" = ""; #704
+          "network.trr.mode" = 5; #710
+          # Arkenfox [0800]
+          "browser.fixup.alternate.enabled" = false; #802
+          "browser.search.suggest.enabled" = false; #804
+          "browser.urlbar.suggest.searches" = false; #804
+          "browser.urlbar.speculativeConnect.enabled" = false; #805
+          "browser.urlbar.dnsResolveSingleWordsAfterSearch" = 0; #806
+          "browser.urlbar.suggest.quicksuggest.sponsored" = false; #807
+          "browser.formfill.enable" = false; #810
+          # Arkenfox [0900]
+          "signon.autofillForms" = false; #903
+          "signon.formlessCapture.enabled" = false; #904
+          "network.auth.subresource-http-auth-allow" = 1; #905
+          # Arkenfox [1200]
+          "security.ssl.require_safe_negotiation" = true; #1201
+          "security.tls.enable_0rtt_data" = false; #1206
+          "security.OCSP.require" = true; #1212
+          "security.cert_pinning.enforcement_level" = 2; #1223
+          "dom.security.https_only_mode_send_http_background_request" = false; #1246
+          "security.ssl.treat_unsafe_negotiation_as_broken" = true; #1270
+          "browser.xul.error_pages.expert_bad_cert" = true; #1272
+          # Arkenfox [1600]
+          "network.http.referer.XOriginTrimmingPolicy" = 2; #1602
+          # Arkenfox [1700]
+          "privacy.userContext.enabled" = true; #1701
+          "privacy.userContext.ui.enabled" = true; #1701
+          # Arkenfox [2400]
+          "dom.disable_window_move_resize" = true; #2402
+          # Arkenfox [2600]
+          "browser.helperApps.deleteTempFileOnExit" = true; #2603
+          "browser.uitour.enabled" = false; #2606
+          "browser.uitour.url" = ""; #2606
+          "devtools.debugger.remote-enabled" = false; #2608
+          "permissions.manager.defaultsUrl" = ""; #2616
+          "network.IDN_show_punycode" = true; #2619
+          "pdfjs.enableScripting" = false; #2620
+          "permissions.delegation.enabled" = false; #2623
+          "browser.tabs.searchclipboardfor.middleclick" = false; #2624
+          "browser.download.manager.addToRecentDocs" = false; #2653
+          "browser.download.always_ask_before_handling_new_types" = true; #2654
+          "extensions.enabledScopes" = 5; #2660
+          "extensions.postDownloadThirdPartyPrompt" = false; #2661
+          # Arkenfox [2700]
+          "privacy.partition.serviceWorkers" = true; #2710
+          "privacy.partition.always_partition_third_party_non_cookie_storage" = true; #2720
+          "privacy.partition.always_partition_third_party_non_cookie_storage.exempt_sessionstorage" = false; #2720
+          # Arkenfox [2800]
+          "privacy.sanitize.sanitizeOnShutdown" = true; #2810
+          "privacy.clearOnShutdown.cache" = true; #2811
+          "privacy.clearOnShutdown.downloads" = false; #2811
+          "privacy.clearOnShutdown.formdata" = true; #2811
+          "privacy.clearOnShutdown.history" = false; #2811
+          "privacy.clearOnShutdown.sessions" = false; #2811
+          "privacy.clearOnShutdown.cookies" = true; #2815
+          # Arkenfox [4500]
+          "browser.link.open_newwindow" = 3; #4512
+          "browser.link.open_newwindow.restriction" = 0; #4513
+          # Arkenfox [5000]
+          "extensions.formautofill.creditCards.enabled" = false; #5017
+          # Arkenfox [9000]
+          "browser.startup.homepage_override.mstone" = "ignore"; #9001
+          "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.addons" = false; #9002
+          "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.features" = false; #9002
+          "browser.messaging-system.whatsNewPanel.enabled" = false; #9003
         };
       };
     };
@@ -865,7 +984,7 @@ in
   system.stateVersion = "23.05";
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
-     xclip
+     wl-clipboard
      git
      rustup
      appimage-run             # TODO: could this be a user package
@@ -943,7 +1062,7 @@ in
   services.avahi.enable = true;
   services.avahi.nssmdns = true;
   services.avahi.openFirewall = true;
-  services.printing.drivers = with pkgs; [ gutenprint samsung-unified-linux-driver ]; # TODO: If ipp everywhere works then I wont need these drivers
+  services.printing.drivers = with pkgs; [ gutenprint ];
 
 
   /******************\
