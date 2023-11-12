@@ -42,6 +42,8 @@ in
     home.stateVersion = "23.05";
     home.packages = with pkgs; [ 
       libsForQt5.kate
+      libsForQt5.kmail
+      partition-manager
       prusa-slicer
       wiki-tui
       sccache
@@ -55,6 +57,7 @@ in
       rawtherapee
       docker-compose
       kalendar
+      dmenu-wayland
     ];
 
 
@@ -955,7 +958,7 @@ in
           "privacy.clearOnShutdown.formdata" = true; #2811
           "privacy.clearOnShutdown.history" = false; #2811
           "privacy.clearOnShutdown.sessions" = false; #2811
-          "privacy.clearOnShutdown.cookies" = true; #2815
+          "privacy.clearOnShutdown.cookies" = false; #2815
           # Arkenfox [4500]
           "browser.link.open_newwindow" = 3; #4512
           "browser.link.open_newwindow.restriction" = 0; #4513
@@ -968,6 +971,14 @@ in
           "browser.messaging-system.whatsNewPanel.enabled" = false; #9003
         };
       };
+    };
+
+    /**********\
+    **  Pass  **
+    \**********/
+    programs.password-store = {
+      enable = true;
+      package = pkgs.pass-wayland.withExtensions (exts: [ exts.pass-otp ]);
     };
   };
 

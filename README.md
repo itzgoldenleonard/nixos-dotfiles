@@ -16,7 +16,8 @@ Some of the files like the obs-studio config files are stored in the git repo. O
     - wiki-tui
     - gitui
     - gpg
-    - firefox [NYI]
+    - firefox
+    - password store
 - System packages
 - Nvidia drivers
 - Fonts
@@ -50,14 +51,15 @@ RUSTC_WRAPPER=sccache cargo install ytsub --features bundled_sqlite    # You mig
 
 
 # Todo
+- [ ] Setup rust dev environment properly
+- [ ] Put executables in PATH
+- [ ] Install cargo packages
 
-- [ ] Setup firefox/browser
-- [ ] Setup rust dev environment
+
+## Hypothetical
 - [ ] Automatically clone this git repo if it's not already
 - [ ] Sync a folder in ~/ to nfs server periodically
 - [ ] Download sync folder if it doesnt exist automatically
-- [ ] Install cargo packages
 - [ ] Setup sway and all of the required software for that
-    - [ ] pass
     - [ ] dmenu or similar
     - [ ] Bookmarks
