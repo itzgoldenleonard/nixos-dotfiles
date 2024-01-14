@@ -8,11 +8,13 @@ let
     sha256 = "ok6id1cTy6zIl7tfi5sCxvXMioB+vbIuGZiMP59NOiw=";
   };
 
+  /*
   unstable = import (builtins.fetchTarball {
       url = "https://github.com/nixos/nixpkgs/tarball/nixpkgs-unstable";
       }) { config = config.nixpkgs.config; };
+      */
   
-  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-23.05.tar.gz";
+  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-23.11.tar.gz";
 in
 {
   imports =
@@ -43,11 +45,16 @@ in
     home.packages = with pkgs; [ 
       libsForQt5.kate
       libsForQt5.kmail
+      libsForQt5.kontact
+      libsForQt5.kaddressbook
+      libsForQt5.korganizer
+      libsForQt5.knotes
       partition-manager
       prusa-slicer
       wiki-tui
       sccache
       inkscape
+      hugin
       openscad
       gnome-solanum
       tor-browser-bundle-bin
@@ -56,7 +63,7 @@ in
       libreoffice-qt
       rawtherapee
       docker-compose
-      kalendar
+      merkuro
       dmenu-wayland
     ];
 
@@ -67,7 +74,8 @@ in
     programs.mpv = {
       enable = true;
       config = { ytdl-format = "bestvideo[height<=?1080]+bestaudio/best"; }; # Limit youtube to 1080p to load faster
-      scripts = with pkgs.mpvScripts; [ mpris youtube-quality sponsorblock webtorrent-mpv-hook ];
+      bindings = { F = "script-binding quality_menu/video_formats_toggle"; };
+      scripts = with pkgs.mpvScripts; [ mpris quality-menu sponsorblock webtorrent-mpv-hook ];
     };
 
     /***********\
@@ -78,10 +86,10 @@ in
     programs.nushell = {
       enable = true;
       envFile.text = ''
-        let-env PROMPT_INDICATOR = { $"(ansi green_bold)❯ " }
-        let-env PROMPT_INDICATOR_VI_INSERT = { $"(ansi green_bold): " }
-        let-env PROMPT_INDICATOR_VI_NORMAL = { $"(ansi green_bold)❯ " }
-        let-env PROMPT_MULTILINE_INDICATOR = { "::: " }
+        $env.PROMPT_INDICATOR = { $"(ansi green_bold)❯ " }
+        $env.PROMPT_INDICATOR_VI_INSERT = { $"(ansi green_bold): " }
+        $env.PROMPT_INDICATOR_VI_NORMAL = { $"(ansi green_bold)❯ " }
+        $env.PROMPT_MULTILINE_INDICATOR = { "::: " }
       '';
       shellAliases = {
           config = "git $'--git-dir=($env.HOME)/.dotfiles' $'--work-tree=($env.HOME)'";
@@ -170,7 +178,7 @@ in
 
 
         # The default config record. This is where much of your global configuration is setup.
-        let-env config = {
+        $env.config = {
             edit_mode: vi # emacs, vi
             cursor_shape: {
                 vi_insert: line # block, underscore, line (block is the default)
@@ -182,9 +190,9 @@ in
                 clickable_links: true # enable or disable clickable links. Your terminal has to support links.
             }
 
-            cd: {
-                abbreviations: true # allows `cd s/o/f` to expand to `cd some/other/folder`
-            }
+            #cd: {
+                #abbreviations: true # allows `cd s/o/f` to expand to `cd some/other/folder`
+            #}
 
             table: {
                 mode: rounded # basic, compact, compact_double, light, thin, with_love, rounded, reinforced, heavy, none, other
@@ -522,7 +530,6 @@ in
         # This is to be configured later
         battery = {
           disabled = false;
-          display.threshold = 100;
         };
       };
     };
@@ -999,7 +1006,7 @@ in
      git
      rustup
      appimage-run             # TODO: could this be a user package
-     unstable.davinci-resolve # This too
+     davinci-resolve # This too
   ];
   programs.kdeconnect.enable = true;
   programs.dconf.enable = true; # This is neccessary for glib apps to change settings
@@ -1038,7 +1045,7 @@ in
   # Fonts
   # =====
   fonts = {
-    fonts = with pkgs; [ roboto roboto-serif roboto-mono (nerdfonts.override { fonts = ["FiraCode"]; }) ];
+    packages = with pkgs; [ roboto roboto-serif roboto-mono (nerdfonts.override { fonts = ["FiraCode"]; }) ];
     fontconfig.enable = true;
     fontconfig.defaultFonts = {
       emoji = [ "Noto Color Emoji" ];
