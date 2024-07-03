@@ -14,7 +14,7 @@ let
       }) { config = config.nixpkgs.config; };
       */
   
-  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-23.11.tar.gz";
+  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-24.05.tar.gz";
 in
 {
   imports =
@@ -28,7 +28,7 @@ in
   \********************/
   services.xserver.enable = true;
   services.xserver.displayManager.startx.enable = true; # Disables the display manager
-  services.xserver.desktopManager.plasma5.enable = true;
+  services.desktopManager.plasma6.enable = true;
   # services.xserver.libinput.enable = true; # touchpad support
 
 /*    ██   ██  ██████  ███    ███ ███████     ███    ███  █████  ███    ██  █████   ██████  ███████ ██████  
@@ -43,13 +43,17 @@ in
     programs.bash.enable = true;
     home.stateVersion = "23.05";
     home.packages = with pkgs; [ 
-      libsForQt5.kate
-      libsForQt5.kmail
-      libsForQt5.kontact
-      libsForQt5.kaddressbook
-      libsForQt5.korganizer
-      libsForQt5.knotes
-      partition-manager
+      kdePackages.kate
+      kdePackages.kmail
+      kdePackages.kdepim-addons
+      kdePackages.kdepim-runtime
+      kdePackages.kontact
+      kdePackages.kaddressbook
+      kdePackages.korganizer
+      kdePackages.knotes
+      kdePackages.partitionmanager
+      kdePackages.kleopatra
+      kdePackages.neochat
       prusa-slicer
       wiki-tui
       sccache
@@ -57,14 +61,14 @@ in
       hugin
       openscad
       gnome-solanum
-      tor-browser-bundle-bin
+      tor-browser
+      onionshare-gui
       tokei
-      blender
-      libreoffice-qt
+      blender-hip
+      libreoffice-qt6-fresh
       rawtherapee
-      docker-compose
-      merkuro
-      dmenu-wayland
+      steam
+      gimp
     ];
 
 
@@ -802,7 +806,7 @@ in
     };
     services.gpg-agent = {
       enable = true;
-      pinentryFlavor = "qt";
+      pinentryPackage = pkgs.pinentry-qt;
     };
 
     /*************\
@@ -1003,6 +1007,7 @@ in
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
      wl-clipboard
+     ydotool
      git
      rustup
      appimage-run             # TODO: could this be a user package
@@ -1010,6 +1015,7 @@ in
   ];
   programs.kdeconnect.enable = true;
   programs.dconf.enable = true; # This is neccessary for glib apps to change settings
+  programs.zsh.enable = true;
 
   # Neovim
   # ======
@@ -1032,6 +1038,7 @@ in
     modesetting.enable = true;
     open = false; # Use the open source version of the kernel module Only available on driver 515.43.04+
     nvidiaSettings = true;
+    dynamicBoost.enable = true;
     prime = {
       nvidiaBusId = "PCI:1:0:0";
       amdgpuBusId = "PCI:34:0:0";
@@ -1078,9 +1085,11 @@ in
   \**************/
   services.printing.enable = true;
   services.avahi.enable = true;
-  services.avahi.nssmdns = true;
+  services.avahi.nssmdns4 = true;
   services.avahi.openFirewall = true;
   services.printing.drivers = with pkgs; [ gutenprint ];
+  hardware.sane.enable = true;
+
 
 
   /******************\
@@ -1120,10 +1129,11 @@ in
   /**********\
   **  User  **
   \**********/
+  users.defaultUserShell = pkgs.zsh;
   users.users.ava = {
     isNormalUser = true;
     description = "Ava Drumm";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "scanner" "lp" ];
   };
 }
 
